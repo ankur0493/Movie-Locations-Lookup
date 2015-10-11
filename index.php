@@ -13,7 +13,7 @@
 		height:70%;
 		width: 50%;
 		}
-		#loc{
+		#message{
 		height: 20%;
 		width: 20%;
 		}
@@ -30,11 +30,17 @@
 		var map=new google.maps.Map(document.getElementById('map'), mapProp);
 		var geocoder = new google.maps.Geocoder();
 
-		$.post('top-locations.php','action=true', function(data){
-			var locations = JSON.parse(data);
-			for(i=0;i<locations.length;i++){
-			$(document.getElementById('loc')).html(locations[i]+'\n');
-			}
+		$.post('top-locations.php','action=true', function(json){
+			json1 = JSON.parse(json);
+			$.each(json1, function(key, data) {
+            var latLng = new google.maps.LatLng(data.lat, data.lng); 
+            // Creating a marker and putting it on the map
+            var marker = new google.maps.Marker({
+                position: latLng,
+                title: data.address
+            });
+			
+			});
 			});
 			
 	
@@ -47,7 +53,7 @@
 		
 	</head>
 	<body>
-	<div id="loc"></div>
+	<div id="message"></div>
 	<div id="map"></div>
 	</body>
 </html>

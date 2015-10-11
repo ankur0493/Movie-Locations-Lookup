@@ -112,7 +112,7 @@ $locations= json_encode($unique_locations);
       // ======= Function to call the next Geocode operation when the reply comes back
 
       function theNext() {
-        if (nextAddress < 701) {
+        if (nextAddress < addresses.length) {
           setTimeout('getAddress("'+addresses[nextAddress]+'",theNext)', delay);
           nextAddress++;
         } else {

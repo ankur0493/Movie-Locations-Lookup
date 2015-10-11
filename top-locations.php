@@ -14,12 +14,24 @@ if($_POST['action'] == true)
 	arsort($location_frequencies);
 	$top_locations = array();
 	foreach ($location_frequencies as $key => $value){
-	if($value>=1){
+	if($value>=3){
 	array_push($top_locations, $key);
 	}
 	}
-	$top_locations = json_encode($top_locations);
-	echo $top_locations;
+	$TopLocData = array();
+	$url2 = "JSON\geoLocations2.json";
+	$json2 = file_get_contents($url2);
+	$data2 = json_decode($json2,TRUE);
+	$i = NULL;
+	for($i=0;$i<count($top_locations);$i++){
+	foreach($data2 as $value){
+	if($top_locations[$i] == $value['address']){
+	array_push($TopLocData,$value);
+	}
+	}
+	}
+	echo(json_encode($TopLocData));
+
 }
 else{
 echo "Error";
