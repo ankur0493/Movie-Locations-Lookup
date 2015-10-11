@@ -32,7 +32,9 @@
 
 		$.post('top-locations.php','action=true', function(data){
 			var locations = JSON.parse(data);
-			$(document.getElementById('loc')).html(locations);
+			for(i=0;i<locations.length;i++){
+			$(document.getElementById('loc')).html(locations[i]+'\n');
+			}
 			});
 			
 	
