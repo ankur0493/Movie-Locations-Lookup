@@ -14,7 +14,7 @@ if($_POST['action'] == true)
 	arsort($location_frequencies);
 	$top_locations = array();
 	foreach ($location_frequencies as $key => $value){
-	if($value>=3){
+	if($value>=0){
 	array_push($top_locations, $key);
 	}
 	}

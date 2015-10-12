@@ -106,7 +106,7 @@ $locations= json_encode($unique_locations);
       var addresses = <?php echo $locations; ?>;
 
       // ======= Global variable to remind us what to do next
-      var nextAddress = 700;
+      var nextAddress = 0;
 	  var LatLngLst = [];
 
       // ======= Function to call the next Geocode operation when the reply comes back

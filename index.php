@@ -7,15 +7,16 @@
 		height:100%;
 		width:100%;
 		}
-		#map {
-		margin-left: 25%;
-		margin-top:15%;
-		height:70%;
-		width: 50%;
+		#searchForm{
+		width: 15%;
+		height:100%;
+		position: absolute;
 		}
-		#message{
-		height: 20%;
-		width: 20%;
+		#map {
+		margin-left: 19%;
+		height:100%;
+		width:79%;
+		position: absolute;
 		}
 		</style>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -25,22 +26,27 @@
 		var LatLng = {lat:37.714238, lng:-122.434268};
 		var mapProp = {
 		center : LatLng,
-		zoom :11};
-		
+		zoom :17};
+		var bounds = new google.maps.LatLngBounds();
 		var map=new google.maps.Map(document.getElementById('map'), mapProp);
 		var geocoder = new google.maps.Geocoder();
-
+		var i = 0;
 		$.post('top-locations.php','action=true', function(json){
 			json1 = JSON.parse(json);
-			$.each(json1, function(key, data) {
-            var latLng = new google.maps.LatLng(data.lat, data.lng); 
+			for(i=0;i<(json1.length);i++){
+			var latLng = new google.maps.LatLng(json1[i].lat, json1[i].lng); 
             // Creating a marker and putting it on the map
             var marker = new google.maps.Marker({
                 position: latLng,
-                title: data.address
+				map: map,
+                title: json1[i].address
             });
+				
 			
-			});
+	   bounds.extend(marker.position);
+			}
+			
+			map.fitBounds(bounds);
 			});
 			
 	
@@ -53,7 +59,7 @@
 		
 	</head>
 	<body>
-	<div id="message"></div>
+	<div id="searchForm"></div>
 	<div id="map"></div>
 	</body>
 </html>
