@@ -46,7 +46,6 @@ $locations= json_encode($unique_locations);
       var map = new google.maps.Map(document.getElementById("map"), mapOptions);
       var bounds = new google.maps.LatLngBounds();
 
-      // ====== Geocoding ======
       function getAddress(search, next) {
         geo.geocode({address:search+', San Francisco '}, function (results,status)
           { 
@@ -67,9 +66,9 @@ $locations= json_encode($unique_locations);
               // Create a marker
               createMarker(search,lat,lng);
             }
-            // ====== Decode the error status ======
+            // Decode the error status 
             else {
-              // === if we were sending the requests to fast, try this one again and increase the delay
+              //if we were sending the requests to fast, try this one again and increase the delay
               if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
                 nextAddress--;
                 delay++;
@@ -84,7 +83,7 @@ $locations= json_encode($unique_locations);
         );
       }
 
-     // ======= Function to create a marker
+     //Function to create a marker
      function createMarker(add,lat,lng) {
        var contentString = add;
        var marker = new google.maps.Marker({
@@ -102,14 +101,14 @@ $locations= json_encode($unique_locations);
 
      }
 
-      // ======= An array of locations that we want to Geocode ========
+      // An array of locations that we want to Geocode 
       var addresses = <?php echo $locations; ?>;
 
-      // ======= Global variable to remind us what to do next
+
       var nextAddress = 0;
 	  var LatLngLst = [];
 
-      // ======= Function to call the next Geocode operation when the reply comes back
+      // Function to call the next Geocode operation when the reply comes back
 
       function theNext() {
         if (nextAddress < addresses.length) {
@@ -134,16 +133,7 @@ $locations= json_encode($unique_locations);
 			});
         }
       }
-
-      // ======= Call that function for the first time =======
       theNext();
-
-    // This Javascript is based on code provided by the
-    // Community Church Javascript Team
-    // http://www.bisphamchurch.org.uk/   
-    // http://econym.org.uk/gmap/
-
-    //]]>
     </script>
   </body>
 
